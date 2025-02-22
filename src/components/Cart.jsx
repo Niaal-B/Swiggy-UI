@@ -1,21 +1,27 @@
 import { Slice } from "lucide-react";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux"; // Added useDispatch
+import { clearCart } from "./utils/cartSlice";
 
 const Cart = () => {
-  const cartItems = useSelector((store) => store.cart?.items || []); // Use optional chaining
-  const dispatch = useDispatch(); // Get dispatch function
+  const cartItems = useSelector((store) => store.cart?.items || []); 
+  const dispatch = useDispatch(); 
 
-  // Function to format price (define it properly based on your currency format)
-  const formatPrice = (price) => `$${(price / 100).toFixed(2)}`; // Assuming price is in cents
+  const formatPrice = (price) => `$${(price / 100).toFixed(2)}`; 
 
   // Function to handle adding item to cart
   const handleAddItem = (item) => {
-    dispatch({ type: "cart/addItem", payload: item }); // Assuming Redux action type
+    dispatch({ type: "cart/addItem", payload: item });
   };
+  
+  const handleclearCart = () =>{
+    dispatch(clearCart())
+  }
 
   return (
     <ul>
+          <button onClick={handleclearCart}>Clear Cart</button>
+
       {cartItems.length > 0 ? (
         cartItems.map((item) => {
           const { id, name, price, description, isVeg } = item.card.info;
