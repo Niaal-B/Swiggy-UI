@@ -2,11 +2,17 @@ import "../App.css";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
-
+import { addItem } from "./utils/cartSlice";
+import { useDispatch } from "react-redux";
 function RestaurantMenu() {
   const [resMenu, setResMenu] = useState(null);
   const { Id } = useParams();
-
+  const dispatch = useDispatch()
+  const handleadditem = (item) =>{
+    console.log('Button clikced');
+    
+    dispatch(addItem(item))
+  }
   useEffect(() => {
     fetchMenu();
   }, [Id]);
@@ -58,7 +64,7 @@ function RestaurantMenu() {
                   <p className="item-description">{description}</p>
                 )}
               </div>
-              <button className="add-btn">ADD</button>
+              <button className="add-btn" onClick={() => handleadditem(item)}>ADD</button>
             </li>
           );
         })}

@@ -8,10 +8,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import About from './components/About.jsx'
 import Resmenu from './components/Resmenu.jsx'
 import Error from './components/Error.jsx'
-
+import { Provider } from 'react-redux'
+import appStore from './components/utils/appstore.js'
+import Cart from './components/Cart.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <Provider store={appStore}>
+ <StrictMode>
     <BrowserRouter>
       <Header/>
       <Routes>
@@ -20,7 +23,12 @@ createRoot(document.getElementById('root')).render(
         <Route path="/about" element={<About/>} />
         <Route path="*" element={<Error/>}/>
         <Route path='/restaurant/:Id' element = {<Resmenu/>} />
+        <Route path='/cart' element = {<Cart/>} />
+
       </Routes>
     </BrowserRouter>
   </StrictMode>
+
+  </Provider>
+ 
 )
